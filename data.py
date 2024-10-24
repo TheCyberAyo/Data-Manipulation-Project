@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the dataset
-file_path = 'output.csv'  # Change this to your dataset path
+file_path = 'output.csv'
 try:
     data = pd.read_csv(file_path)
     print(f"Data loaded successfully from {file_path}.")
@@ -83,6 +83,45 @@ plt.tight_layout()
 
 # Show the bar plot live
 plt.show()
+
+# Additional Visualizations
+# Pie Chart: Distribution of cars by fuel type
+plt.figure(figsize=(8, 8))
+fuel_distribution = cleaned_data['fuel'].value_counts()
+plt.pie(fuel_distribution, labels=fuel_distribution.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("Set2"))
+plt.title('Distribution of Cars by Fuel Type')
+plt.show()
+
+# Scatter Plot: Price vs Kilometers driven
+plt.figure(figsize=(10, 6))
+sns.scatterplot(x='km', y='price', hue='fuel', data=cleaned_data, palette='coolwarm')
+plt.title('Price vs Kilometers Driven by Fuel Type')
+plt.xlabel('Kilometers Driven')
+plt.ylabel('Price')
+plt.show()
+
+# Bar Plot: Average price by transmission type
+transmission_summary = cleaned_data.groupby('transmission').agg(
+    average_price=('price', 'mean'),
+    count=('price', 'size')
+).reset_index()
+
+plt.figure(figsize=(8, 6))
+sns.barplot(x='transmission', y='average_price', data=transmission_summary, palette='viridis')
+plt.title('Average Price by Transmission Type')
+plt.xlabel('Transmission Type')
+plt.ylabel('Average Price')
+plt.show()
+
+# Brand summary
+brand_summary = cleaned_data.groupby('brand').agg(
+    average_price=('price', 'mean'),
+    average_km=('km', 'mean'),
+    count=('price', 'size')
+).reset_index()
+
+# Display the brand summary for the top brands
+print(brand_summary.head(10))
 
 # Final Report
 print("Data analysis and visualization completed.")
