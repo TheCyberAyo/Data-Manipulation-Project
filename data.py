@@ -39,7 +39,7 @@ plt.title('Kilometers Driven Distribution')
 plt.tight_layout()
 plt.show()
 
-# Data Manipulation: Create new column for price per kilometer
+# Data Manipulation
 cleaned_data['price_per_km'] = cleaned_data['price'] / cleaned_data['km']
 
 # Data Analysis: Summary by seats, using pivot-like grouping and aggregation
@@ -54,7 +54,7 @@ plt.title('Average Price by Number of Seats')
 plt.tight_layout()
 plt.show()
 
-# Data Exploration and Visualization: Additional visualizations
+# Data Exploration and Visualization
 plt.figure(figsize=(8, 8))
 fuel_distribution = cleaned_data['fuel'].value_counts()
 plt.pie(fuel_distribution, labels=fuel_distribution.index, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("Set2"))
